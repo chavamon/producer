@@ -51,3 +51,17 @@ services:
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     depends_on:
       - zookeeper
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+        - "5432:5432"
+    volumes:
+        - $HOME/dbs/postgres:/var/lib/postgresql/data
