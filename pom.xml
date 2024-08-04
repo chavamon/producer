@@ -12,13 +12,13 @@
 	<artifactId>producer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>producer</name>
-	<description>Demo producer project for Spring Boot</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
+	<description>Kafka Producer project for Spring Boot</description>
+
 	<developers>
-		<developer/>
+		<developer>
+			<name>Salvador Valeriano</name>
+			<email>salvador.valeriano@gmail.com</email>
+		</developer>
 	</developers>
 	<scm>
 		<connection/>
@@ -28,7 +28,9 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<commons-collections.version>4.4</commons-collections.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -36,6 +38,14 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Resilience4j -->
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
@@ -50,6 +60,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Kafka Test
+		Uncontrolled recursion:
+		  The framework Apache Commons Collections before 4.3 is vulnerable to Stack Overflow.
+		  The function `add()` in the file `list/SetUniqueList.java` throws a StackOverflowError when the `add()`
+		  method is called with its own list
+		-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons-collections.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
@@ -60,7 +84,14 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
 	</dependencies>
 
 	<build>

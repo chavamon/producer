@@ -62,8 +62,8 @@ pipeline {
             // Replace 'your-ec2-user' with your actual EC2 instance user
             // Replace 'your-ec2-host' with your actual EC2 instance public DNS or IP
             // Replace '/path/to/your/application.jar' with the actual path on your EC2 instance
-            sh 'scp target/*.jar your-ec2-user@your-ec2-host:/path/to/your/application.jar'
-            sh 'ssh your-ec2-user@your-ec2-host "sudo systemctl restart your-application-service"'
+            sh 'scp target/*.jar ec2-user@your-ec2-host:/path/to/your/application.jar'
+            sh 'ssh ec2-user@your-ec2-host "sudo systemctl restart your-application-service"'
         }
     }
 

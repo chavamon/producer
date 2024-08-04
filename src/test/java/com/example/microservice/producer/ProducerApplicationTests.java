@@ -11,7 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import static org.mockito.Mockito.times;
 
 @SpringBootTest
-class ProducerApplicationTests {
+public class ProducerApplicationTests {
 
 	private KafkaTemplate<String, Object> kafkaTemplate;
 	private ProducerServiceImpl producerService;
